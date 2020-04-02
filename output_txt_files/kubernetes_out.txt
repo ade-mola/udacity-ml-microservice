@@ -1,0 +1,29 @@
+<paste log output from Kubernetes-mediated prediction, here>
+
+(.microapp) kay-locke@locke:~/Desktop/Udacity-Cloud/microservices-project$ kubectl get pods
+NAME                               READY   STATUS    RESTARTS   AGE
+microservice-ml-7ff9cfb478-qzdlc   1/1     Running   0          96s
+
+(.microapp) kay-locke@locke:~/Desktop/Udacity-Cloud/microservices-project$ kubectl get services
+NAME                   TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)   AGE
+kubernetes             ClusterIP   10.96.0.1      <none>        443/TCP   8h
+microservice-ml-http   ClusterIP   10.105.74.35   <none>        80/TCP    3m56s
+
+(.microapp) kay-locke@locke:~/Desktop/Udacity-Cloud/microservices-project$ kubectl logs microservice-ml-7ff9cfb478-qzdlc
+ * Serving Flask app "app" (lazy loading)
+ * Environment: production
+   WARNING: Do not use the development server in a production environment.
+   Use a production WSGI server instead.
+ * Debug mode: on
+ * Running on http://0.0.0.0:80/ (Press CTRL+C to quit)
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 442-745-165
+(.microapp) kay-locke@locke:~/Desktop/Udacity-Cloud/microservices-project$ [2020-04-02 02:43:40,431] INFO in app: JSON payload: {'CHAS': {'0': 0}, 'RM': {'0': 6.575}, 'TAX': {'0': 296.0}, 'PTRATIO': {'0': 15.3}, 'B': {'0': 396.9}, 'LSTAT': {'0': 4.98}}
+[2020-04-02 02:43:40,437] INFO in app: Inference payload DataFrame:    CHAS     RM    TAX  PTRATIO      B  LSTAT
+0     0  6.575  296.0     15.3  396.9   4.98
+[2020-04-02 02:43:40,487] INFO in app: Scaling Payload:    CHAS     RM    TAX  PTRATIO      B  LSTAT
+0     0  6.575  296.0     15.3  396.9   4.98
+[2020-04-02 02:43:40,512] INFO in app: Scale inference payload: [[0. 0. 0. 0. 0. 0.]]
+[2020-04-02 02:43:40,513] INFO in app: Prediction for the scaled data: [20.35373177134412]
+172.17.0.1 - - [02/Apr/2020 02:43:40] "POST /predict HTTP/1.1" 200 -
